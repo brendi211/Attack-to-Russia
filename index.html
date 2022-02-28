@@ -8,16 +8,22 @@
         body {
             margin: 10px;
             padding: 10px;
-            background: linear-gradient(0deg, #fff20080 60%, #344ceb80 60%);
         }
 
         .title {
+            display: block;
             text-align: center;
             margin: auto;
             width: 400px;
+            height: 40px;
+        }
+        .title .fixed {
+            display: block;
+            position: fixed;
+            width: 400px;
+            height: 40px;
             color: rgb(161, 16, 16);
             background: linear-gradient(0deg, #fff20080 50%, #344ceb80 50%);
-
         }
 
         ul {
@@ -56,7 +62,7 @@
     </style>
 </head>
 <body>
-<h1 class="title">DDos Attack to Russia</h1>
+<h1 class="title"><span class="fixed">DDos Attack to Russia</span></h1>
 <p class="desc">Офіційні новини в рф - це театр абсурду і ми вважаємо, що це треба зупинити!</p>
 <p class="desc">
     1. Для найбільної ефективності запускайте VPN, тому що сайти РФ блокують наші IP адреси.
@@ -104,7 +110,8 @@
                     const controller = new AbortController();
                     const id = setTimeout(() => controller.abort(), options.timeout);
                     return fetch(resource, {
-                        signal: controller.signal
+                        signal: controller.signal,
+                        mode: 'no-cors'
                     }).then((response) => {
                         clearTimeout(id);
                         return response;
